@@ -3,7 +3,7 @@ import { Logo } from '../Logo';
 
 export const Header = () => {
     return (
-        <AppBar>
+        <AppBar position={'relative'}>
             <Toolbar>
                 <Logo/>
                 <Typography variant='h5' sx={{ flexGrow: 1 }}>

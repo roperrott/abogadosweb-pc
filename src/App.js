@@ -1,9 +1,11 @@
-import './App.css';
-import { Header } from './components';
+import { Header, NewsForm, PageContent } from './components';
 
 const App = () => {
   return (
-    <Header/>
+    <PageContent >
+      <Header/>
+      <NewsForm/>
+    </PageContent>
   );
 }
 
