@@ -1,12 +1,10 @@
 import { Header, NewsForm, PageContent } from './components';
 
-const App = () => {
-  return (
-    <PageContent >
-      <Header/>
-      <NewsForm/>
-    </PageContent>
-  );
-}
+const App = () => (
+  <PageContent>
+    <Header />
+    <NewsForm />
+  </PageContent>
+);
 
 export default App;

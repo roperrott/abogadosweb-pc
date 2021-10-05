@@ -1,9 +1,5 @@
-
-
-export const PageContent = ({children}) => {
-    return (
-        <div>
-            {children}
-        </div>
-    );
-};
+export const PageContent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
