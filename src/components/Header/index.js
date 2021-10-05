@@ -1,4 +1,4 @@
-import { AppBar, Typography, Toolbar} from '@material-ui/core';
+import { AppBar, Typography, Toolbar } from '@material-ui/core';
 import { Logo } from '../Logo';
 
 export const Header = () => {
