@@ -12,7 +12,6 @@ export const NewsForm = () => {
     const { target: { value, name } } = e;
     setFormValue({ ...formValues, [name]: value });
   };
-  console.log(formValues);
   return (
     <Container className={classes.container}>
       <Typography variant="h6">Agregar Noticia</Typography>
