@@ -2,7 +2,7 @@ import { AppBar, Typography, Toolbar } from '@material-ui/core';
 import { Logo } from '../Logo';
 
 export const Header = () => (
-  <AppBar>
+  <AppBar position="relative">
     <Toolbar>
       <Logo />
       <Typography variant="h5" sx={{ flexGrow: 1 }}>
