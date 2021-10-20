@@ -49,7 +49,6 @@ export const NewsForm = () => {
       <Snackbar
         open={showSuccessAlert}
         autoHideDuration={3000}
-        onClose={() => setShowSuccessAlert(false)}
       >
         <Alert onClose={() => setShowSuccessAlert(false)} severity="success" sx={{ width: '100%' }}>
           La noticia se subió con éxito
@@ -58,7 +57,6 @@ export const NewsForm = () => {
       <Snackbar
         open={showErrorAlert}
         autoHideDuration={3000}
-        onClose={() => setShowErrorAlert(false)}
       >
         <Alert onClose={() => setShowErrorAlert(false)} severity="error" sx={{ width: '100%' }}>
           Hubo un error
