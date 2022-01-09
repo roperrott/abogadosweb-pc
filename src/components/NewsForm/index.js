@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   Container, Typography, TextField, Button, Alert, Snackbar, CircularProgress,
-} from '@material-ui/core';
+} from '@mui/material';
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import { useStyles } from './styles';
 import { db } from '../../firebase';
@@ -45,7 +45,7 @@ export const NewsForm = () => {
             alignSelf: 'center',
           }}
         />
-      ) : <Button variant="contained" onClick={onSendData} disabled={!isValid}>Enviar</Button>}
+      ) : <Button variant="contained" color="secondary" size="small" onClick={onSendData} disabled={!isValid}>Enviar</Button>}
       <Snackbar
         open={showSuccessAlert}
         autoHideDuration={3000}

@@ -1,12 +1,12 @@
-import { AppBar, Typography, Toolbar } from '@material-ui/core';
+import { AppBar, Typography, Toolbar } from '@mui/material';
 import { Logo } from '../Logo';
 
 export const Header = () => (
-  <AppBar position="relative">
+  <AppBar position="relative" color="inherit">
     <Toolbar>
       <Logo />
-      <Typography variant="h5" sx={{ flexGrow: 1 }}>
-        Dashboard
+      <Typography variant="h4" component="div" color="primary" sx={{ flexGrow: 1 }}>
+        Abogados Web Dashboard
       </Typography>
       <Typography>
         Nombre Usuario
