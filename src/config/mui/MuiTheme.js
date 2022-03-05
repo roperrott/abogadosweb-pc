@@ -23,10 +23,10 @@ export const Theme = createTheme({
       styleOverrides: {
         root: {
           position: 'relative',
-          paddingBottom: 20,
+          paddingBottom: 10,
           paddingLeft: 10,
           fontWeight: 600,
-          fontSize: 21.7,
+          fontSize: 18,
           color: '#333333',
           transform: 'none',
           '&.Mui-focused': {
@@ -38,7 +38,7 @@ export const Theme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
-          minHeight: 155,
+          minHeight: 120,
         },
       },
     },
@@ -46,8 +46,8 @@ export const Theme = createTheme({
       styleOverrides: {
         root: {
           required: true,
-          height: 77,
-          fontSize: '23px',
+          height: 60,
+          fontSize: '16px',
           border: '1px solid #707070',
           '&.MuiOutlinedInput-root': {
             borderRadius: 60,
@@ -93,9 +93,8 @@ export const Theme = createTheme({
           borderRadius: 19,
           border: '1px solid #707070',
           '&.MuiButton-containedSizeMedium': {
-            height: 80,
-            padding: '0px 86px',
-            fontSize: 35,
+            height: 50,
+            fontSize: 18,
           },
           '&.MuiButton-containedSizeLarge': {
             minHeight: 107,

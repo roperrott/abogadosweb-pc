@@ -44,8 +44,8 @@ export const LoginForm = () => {
   };
 
   return (
-    <Container className={classes.loginWrapper}>
-      <Typography variant="h6">Inicie sesion</Typography>
+    <Container className={classes.loginWrapper} sx={{ bgcolor: 'background.default' }}>
+      <Typography variant="h6">INICIAR SESION</Typography>
       <TextField
         required
         label="email"
@@ -54,18 +54,19 @@ export const LoginForm = () => {
         variant="outlined"
         size="normal"
         name="user"
-        alue={formValues.user}
+        value={formValues.user}
         onChange={onValueChange}
       />
       <TextField
         required
+        type="password"
         label="Contraseña"
         InputLabelProps={{ shrink: false }}
         margin="normal"
         variant="outlined"
         size="normal"
         name="password"
-        alue={formValues.pasword}
+        value={formValues.password}
         onChange={onValueChange}
       />
       <Button color="secondary" variant="contained" size="medium" disabled={!isValid} onClick={onSendData}>
