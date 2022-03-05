@@ -46,16 +46,38 @@ export const LoginForm = () => {
   return (
     <Container className={classes.loginWrapper}>
       <Typography variant="h6">Inicie sesion</Typography>
-      <TextField label="Usuario" size="small" value={formValues.user} onChange={onValueChange} name="user" required margin="normal" />
-      <TextField label="Contraseña" size="small" value={formValues.password} onChange={onValueChange} name="password" required margin="normal" />
-      {isLoading ? (
-        <CircularProgress
-          size={30}
-          sx={{
-            alignSelf: 'center',
-          }}
-        />
-      ) : <Button variant="contained" onClick={onSendData} disabled={!isValid}>Ingresar</Button>}
+      <TextField
+        required
+        label="email"
+        InputLabelProps={{ shrink: false }}
+        margin="normal"
+        variant="outlined"
+        size="normal"
+        name="user"
+        alue={formValues.user}
+        onChange={onValueChange}
+      />
+      <TextField
+        required
+        label="Contraseña"
+        InputLabelProps={{ shrink: false }}
+        margin="normal"
+        variant="outlined"
+        size="normal"
+        name="password"
+        alue={formValues.pasword}
+        onChange={onValueChange}
+      />
+      <Button color="secondary" variant="contained" size="medium" disabled={!isValid} onClick={onSendData}>
+        {isLoading ? (
+          <CircularProgress
+            size={30}
+            sx={{
+              alignSelf: 'center',
+            }}
+          />
+        ) : 'INGRESAR'}
+      </Button>
       <Snackbar
         open={showSuccessAlert}
         autoHideDuration={3000}

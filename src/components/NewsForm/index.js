@@ -36,9 +36,10 @@ export const NewsForm = () => {
     try {
       await addDoc(collection(db, 'news'), { ...formValues, date: Timestamp.fromDate(new Date()) });
       setShowSuccessAlert(true);
-      setIsLoading(false);
     } catch (e) {
       setShowErrorAlert(true);
+      setIsLoading(false);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -46,16 +47,39 @@ export const NewsForm = () => {
   return (
     <Container className={classes.formWrapper}>
       <Typography variant="h6">Agregar Noticia</Typography>
-      <TextField label="Titulo" size="small" value={formValues.title} onChange={onValueChange} name="title" required margin="normal" />
-      <TextField label="Contenido" size="small" value={formValues.body} onChange={onValueChange} name="body" required margin="normal" multiline minRows={4} />
-      {isLoading ? (
-        <CircularProgress
-          size={30}
-          sx={{
-            alignSelf: 'center',
-          }}
-        />
-      ) : <Button variant="contained" color="secondary" size="small" onClick={onSendData} disabled={!isValid}>Enviar</Button>}
+      <TextField
+        required
+        label="Titulo"
+        InputLabelProps={{ shrink: false }}
+        margin="normal"
+        variant="outlined"
+        size="normal"
+        value={formValues.title}
+        name="title"
+        onChange={onValueChange}
+      />
+      <TextField
+        required
+        multiline
+        label="Contenido"
+        InputLabelProps={{ shrink: false }}
+        margin="normal"
+        variant="outlined"
+        rows={6}
+        value={formValues.body}
+        name="body"
+        onChange={onValueChange}
+      />
+      <Button color="secondary" variant="contained" size="medium" disabled={!isValid} onClick={onSendData}>
+        {isLoading ? (
+          <CircularProgress
+            size={30}
+            sx={{
+              alignSelf: 'center',
+            }}
+          />
+        ) : 'ENVIAR'}
+      </Button>
       <Snackbar
         open={showSuccessAlert}
         autoHideDuration={3000}
