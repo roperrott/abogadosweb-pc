@@ -5,11 +5,14 @@ import { ThemeProvider } from '@mui/material/styles';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Theme } from './config/mui/MuiTheme';
+import { AuthContext } from './context/authContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={Theme}>
-      <App />
+      <AuthContext>
+        <App />
+      </AuthContext>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),
