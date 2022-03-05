@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 
 export const useStyles = makeStyles({
-  formWrapper: {
+  loginWrapper: {
     display: 'flex',
     flexDirection: 'column',
     width: '50%',

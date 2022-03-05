@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import {
   Container, Typography, TextField, Button, Alert, Snackbar, CircularProgress,
 } from '@mui/material';
-import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { useStyles } from './styles';
-import { db } from '../../firebase';
 import { useValidate } from '../../hooks/useValidateInput';
+import { auth } from '../../firebase';
 import { Auth } from '../../context/authContext';
 
-export const NewsForm = () => {
+export const LoginForm = () => {
   const classes = useStyles();
-  const [formValues, setFormValue] = useState({ title: '', body: '' });
+  const [formValues, setFormValue] = useState({ user: '', password: '' });
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,8 +19,8 @@ export const NewsForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user === null) {
-      navigate('/login');
+    if (user) {
+      navigate('/');
     }
   }, [navigate, user]);
 
@@ -34,40 +34,38 @@ export const NewsForm = () => {
   const onSendData = async () => {
     setIsLoading(true);
     try {
-      await addDoc(collection(db, 'news'), { ...formValues, date: Timestamp.fromDate(new Date()) });
-      setShowSuccessAlert(true);
+      await signInWithEmailAndPassword(auth, formValues.user, formValues.password);
+      navigate('/');
     } catch (e) {
-      setShowErrorAlert(true);
-      setIsLoading(false);
+      console.log(e);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <Container className={classes.formWrapper}>
-      <Typography variant="h6">Agregar Noticia</Typography>
+    <Container className={classes.loginWrapper}>
+      <Typography variant="h6">Inicie sesion</Typography>
       <TextField
         required
-        label="Titulo"
+        label="email"
         InputLabelProps={{ shrink: false }}
         margin="normal"
         variant="outlined"
         size="normal"
-        value={formValues.title}
-        name="title"
+        name="user"
+        alue={formValues.user}
         onChange={onValueChange}
       />
       <TextField
         required
-        multiline
-        label="Contenido"
+        label="Contraseña"
         InputLabelProps={{ shrink: false }}
         margin="normal"
         variant="outlined"
-        rows={6}
-        value={formValues.body}
-        name="body"
+        size="normal"
+        name="password"
+        alue={formValues.pasword}
         onChange={onValueChange}
       />
       <Button color="secondary" variant="contained" size="medium" disabled={!isValid} onClick={onSendData}>
@@ -78,14 +76,14 @@ export const NewsForm = () => {
               alignSelf: 'center',
             }}
           />
-        ) : 'ENVIAR'}
+        ) : 'INGRESAR'}
       </Button>
       <Snackbar
         open={showSuccessAlert}
         autoHideDuration={3000}
       >
         <Alert onClose={() => setShowSuccessAlert(false)} severity="success" sx={{ width: '100%' }}>
-          La noticia se subió con éxito
+          Se ingreso correctamente
         </Alert>
       </Snackbar>
       <Snackbar

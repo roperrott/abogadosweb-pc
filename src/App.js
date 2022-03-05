@@ -1,10 +1,18 @@
-import { Header, NewsForm, PageContent } from './components';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import { Dashboard, Login, Queries } from './pages';
 
 const App = () => (
-  <PageContent>
-    <Header />
-    <NewsForm />
-  </PageContent>
+  <Router>
+    <Routes>
+      <Route exact path="/" element={<Dashboard />} />
+      <Route exact path="/login" element={<Login />} />
+      <Route exact path="/consultas" element={<Queries />} />
+    </Routes>
+  </Router>
 );
 
 export default App;
