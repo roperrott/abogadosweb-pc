@@ -1,14 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { ThemeProvider } from '@mui/material/styles';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Theme } from './config/mui/MuiTheme';
+import { AuthContext } from './context/authContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={Theme}>
+      <AuthContext>
+        <App />
+      </AuthContext>
+    </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function
