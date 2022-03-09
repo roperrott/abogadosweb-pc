@@ -126,16 +126,11 @@ export const Theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundColor: '#FFFFFF',
-          width: 365,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          boxShadow: '0px 3px 6px #00000029',
-          justifyContent: 'baselined',
-          borderRadius: 89.6,
-          paddingBottom: 23.8,
-          marginTop: 40,
+          '&.MuiQueryCard': {
+            backgroundColor: '#FFFFFF',
+            width: '50vw',
+            margin: '10px auto',
+          },
           '&.MuiNewsCard': {
             width: '90%',
             display: 'flex',
@@ -216,7 +211,6 @@ export const Theme = createTheme({
       fontFamily: 'Lato',
       fontSize: 20,
       color: '#707070',
-      textAlign: 'center',
     },
   },
 });
