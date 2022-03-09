@@ -1,8 +1,9 @@
 import { Header, PageContent } from '../../components';
+import { QueriesScreen } from '../../components/QueriesScreen';
 
 export const Queries = () => (
   <PageContent>
     <Header />
-    <div>Consultas</div>
+    <QueriesScreen />
   </PageContent>
 );

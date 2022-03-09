@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {
-  Container, Typography, TextField, Button, Alert, Snackbar, CircularProgress,
+  Typography, TextField, Button, Alert, Snackbar, CircularProgress, Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useStyles } from './styles';
@@ -44,7 +44,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <Container className={classes.loginWrapper} sx={{ bgcolor: 'background.default' }}>
+    <Paper className={classes.loginWrapper} sx={{ bgcolor: 'primary.main' }} elevation={4}>
       <Typography variant="h6">INICIAR SESION</Typography>
       <TextField
         required
@@ -95,6 +95,6 @@ export const LoginForm = () => {
           Hubo un error
         </Alert>
       </Snackbar>
-    </Container>
+    </Paper>
   );
 };
