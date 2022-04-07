@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import './index.css';
 
 import * as yup from 'yup';
+import { useEffect } from 'react';
 
 const validationSchema = yup.object({
   title: yup
@@ -16,18 +17,38 @@ const validationSchema = yup.object({
 });
 
 export const NewsDialog = ({
-  open, handleClose, isLoading, onSendData,
+  open, handleClose, isLoading, onSendData, newsData, onEdit, isEditMode,
 }) => {
+  const onSubmitData = (values) => {
+    if (isEditMode) {
+      onEdit(values, newsData.id);
+    } else {
+      onSendData(values);
+    }
+  };
   const formik = useFormik({
     initialValues: {
       title: '', body: '',
     },
     validationSchema,
-    onSubmit: (values) => onSendData(values),
+    onSubmit: (values) => onSubmitData(values),
   });
+
+  useEffect(() => {
+    if (newsData) {
+      formik.setFormikState({ values: newsData });
+    } else {
+      formik.setFormikState({ values: { title: '', body: '' } });
+    }
+  }, [newsData]);
+
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Agregar Noticia</DialogTitle>
+    <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+      <DialogTitle>
+        {isEditMode ? 'Editar' : 'Agregar'}
+        {' '}
+        Noticia
+      </DialogTitle>
       <DialogContent>
         <form onSubmit={formik.handleSubmit} className="news-form">
           <TextField
@@ -37,7 +58,7 @@ export const NewsDialog = ({
             margin="normal"
             variant="outlined"
             size="normal"
-            value={formik.title}
+            value={formik?.values?.title}
             name="title"
             onChange={formik.handleChange}
           />
@@ -49,7 +70,7 @@ export const NewsDialog = ({
             margin="normal"
             variant="outlined"
             rows={6}
-            value={formik.body}
+            value={formik?.values?.body}
             name="body"
             onChange={formik.handleChange}
           />

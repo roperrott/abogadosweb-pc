@@ -35,7 +35,7 @@ export const Header = () => {
   };
 
   return (
-    <AppBar position="relative" color="inherit">
+    <AppBar position="relative" color="secondary">
       <Toolbar>
         <Logo />
         {user && (

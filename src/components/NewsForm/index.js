@@ -1,16 +1,27 @@
 import { useContext, useEffect, useState } from 'react';
-import { Button, Alert, Snackbar } from '@mui/material';
-import { addDoc, collection, Timestamp } from 'firebase/firestore';
+import {
+  Alert, Snackbar, Box, Fab,
+} from '@mui/material';
+import {
+  addDoc, collection, doc, getDocs, limit, orderBy, query, Timestamp, updateDoc,
+} from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase';
 import { Auth } from '../../context/authContext';
 import { NewsDialog } from '../NewsDialog';
+
+import './styles.css';
+import { NewsCard } from '../NewsCard';
 
 export const NewsForm = () => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [open, setOpen] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [newsIsLoading, setNewsIsLoading] = useState(false);
+  const [news, setNews] = useState([]);
+  const [newsToEdit, setNewsToEdit] = useState();
+  const [isEditMode, setIsEditMode] = useState(false);
   const { user } = useContext(Auth);
   const navigate = useNavigate();
 
@@ -33,18 +44,72 @@ export const NewsForm = () => {
     }
   };
 
+  const onEditNews = async (formValues, id) => {
+    setIsLoading(true);
+    try {
+      const docRef = doc(db, 'news', id);
+      await updateDoc(docRef,
+        { title: formValues.title, body: formValues.body, date: Timestamp.fromDate(new Date()) });
+      setShowSuccessAlert(true);
+    } catch (e) {
+      setShowErrorAlert(true);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getNews = async () => {
+    setNewsIsLoading(true);
+    try {
+      const newsTemp = [];
+      const querySnapshot = await getDocs(query(collection(db, 'news'), orderBy('date', 'desc'), limit(5)));
+      querySnapshot.forEach(
+        (document) => newsTemp.push(
+          {
+            ...document.data(),
+            date: document.data().date.toDate().toDateString(),
+            id: document.id,
+          },
+        ),
+      );
+      setNews(newsTemp);
+    } catch {
+      setNewsIsLoading(false);
+    }
+    setNewsIsLoading(false);
+  };
+
+  useEffect(() => {
+    getNews();
+  }, []);
+
   const onHandleClose = () => {
+    setIsEditMode(false);
+    setNewsToEdit();
     setOpen(!open);
   };
 
+  const onOpenEditDialog = async ({ id, title, body }) => {
+    setOpen(true);
+    setIsEditMode(true);
+    setNewsToEdit({ id, title, body });
+  };
+
   return (
-    <>
-      <Button variant="contained" onClick={onHandleClose}>Agregar noticia</Button>
+    <Box>
+      <Fab variant="extended" onClick={onHandleClose}>Agregar noticia</Fab>
+      {news.length > 0 && !newsIsLoading && news.map(({ id, title, body }) => (
+        <NewsCard key={id} id={id} title={title} content={body} onPressEdit={onOpenEditDialog} />
+      ))}
       <NewsDialog
         open={open}
         handleClose={onHandleClose}
         isLoading={isLoading}
         onSendData={onSendData}
+        newsData={newsToEdit}
+        isEditMode={isEditMode}
+        onEdit={onEditNews}
       />
       <Snackbar
         open={showSuccessAlert}
@@ -62,6 +127,6 @@ export const NewsForm = () => {
           Hubo un error
         </Alert>
       </Snackbar>
-    </>
+    </Box>
   );
 };
