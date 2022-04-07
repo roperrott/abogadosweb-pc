@@ -44,21 +44,6 @@ export const NewsForm = () => {
     }
   };
 
-  const onEditNews = async (formValues, id) => {
-    setIsLoading(true);
-    try {
-      const docRef = doc(db, 'news', id);
-      await updateDoc(docRef,
-        { title: formValues.title, body: formValues.body, date: Timestamp.fromDate(new Date()) });
-      setShowSuccessAlert(true);
-    } catch (e) {
-      setShowErrorAlert(true);
-      setIsLoading(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const getNews = async () => {
     setNewsIsLoading(true);
     try {
@@ -78,6 +63,22 @@ export const NewsForm = () => {
       setNewsIsLoading(false);
     }
     setNewsIsLoading(false);
+  };
+
+  const onEditNews = async (formValues, id) => {
+    setIsLoading(true);
+    try {
+      const docRef = doc(db, 'news', id);
+      await updateDoc(docRef,
+        { title: formValues.title, body: formValues.body, date: Timestamp.fromDate(new Date()) });
+      setShowSuccessAlert(true);
+      getNews();
+    } catch (e) {
+      setShowErrorAlert(true);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
