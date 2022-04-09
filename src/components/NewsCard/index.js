@@ -1,6 +1,8 @@
 import {
   Card, CardActionArea, CardContent, Typography, CardActions, Button,
 } from '@mui/material';
+import EditIcon from '@mui/icons-material/EditOutlined';
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
 
 export const NewsCard = ({
   id, title, content, onPressDelete, onPressEdit,
@@ -23,9 +25,11 @@ export const NewsCard = ({
     </CardActionArea>
     <CardActions>
       <Button size="small" color="secondary" onClick={() => onPressEdit({ id, title, body: content })}>
+        <EditIcon fontSize="small" />
         Editar
       </Button>
       <Button size="small" color="secondary" onClick={() => onPressDelete(id)}>
+        <DeleteIcon size="small" />
         Eliminar
       </Button>
     </CardActions>

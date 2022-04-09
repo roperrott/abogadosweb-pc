@@ -3,8 +3,9 @@ import {
   Alert, Snackbar, Box, Fab,
 } from '@mui/material';
 import {
-  addDoc, collection, doc, getDocs, limit, orderBy, query, Timestamp, updateDoc,
+  addDoc, collection, deleteDoc, doc, getDocs, limit, orderBy, query, Timestamp, updateDoc,
 } from 'firebase/firestore';
+import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase';
 import { Auth } from '../../context/authContext';
@@ -41,6 +42,7 @@ export const NewsForm = () => {
       setIsLoading(false);
     } finally {
       setIsLoading(false);
+      setOpen(false);
     }
   };
 
@@ -70,7 +72,7 @@ export const NewsForm = () => {
     try {
       const docRef = doc(db, 'news', id);
       await updateDoc(docRef,
-        { title: formValues.title, body: formValues.body, date: Timestamp.fromDate(new Date()) });
+        { title: formValues.title, body: formValues.body });
       setShowSuccessAlert(true);
       getNews();
     } catch (e) {
@@ -78,6 +80,23 @@ export const NewsForm = () => {
       setIsLoading(false);
     } finally {
       setIsLoading(false);
+      setOpen(false);
+    }
+  };
+
+  const onDeleteNews = async (id) => {
+    const docRef = doc(db, 'news', id);
+    try {
+      await deleteDoc(docRef);
+      getNews();
+    } catch {
+      setShowErrorAlert(true);
+    }
+  };
+
+  const onDelete = (id) => {
+    if (window.confirm('Desea eliminar la noticia?')) {
+      onDeleteNews(id);
     }
   };
 
@@ -99,9 +118,29 @@ export const NewsForm = () => {
 
   return (
     <Box>
-      <Fab variant="extended" onClick={onHandleClose}>Agregar noticia</Fab>
+      <Fab
+        variant="extended"
+        sx={{
+          position: 'fixed',
+          zIndex: 999,
+          right: 20,
+          bottom: 40,
+        }}
+        onClick={onHandleClose}
+      >
+        <AddIcon />
+        Agregar noticia
+
+      </Fab>
       {news.length > 0 && !newsIsLoading && news.map(({ id, title, body }) => (
-        <NewsCard key={id} id={id} title={title} content={body} onPressEdit={onOpenEditDialog} />
+        <NewsCard
+          key={id}
+          id={id}
+          title={title}
+          content={body}
+          onPressEdit={onOpenEditDialog}
+          onPressDelete={onDelete}
+        />
       ))}
       <NewsDialog
         open={open}
