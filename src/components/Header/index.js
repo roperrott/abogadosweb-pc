@@ -77,7 +77,7 @@ export const Header = () => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={onLogOut}>
-                <Typography variant="h4" color="primary" textAlign="center">Cerrar sesion</Typography>
+                <Typography variant="h4" color="secondary" textAlign="center">Cerrar sesion</Typography>
               </MenuItem>
 
             </Menu>

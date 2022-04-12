@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import { CircularProgress } from '@mui/material';
 import { auth } from '../firebase';
 
 export const Auth = React.createContext();
@@ -16,7 +17,14 @@ export const AuthContext = ({ children }) => {
   }, []);
 
   if (!showChild) {
-    return <div>cargando</div>;
+    return (
+      <CircularProgress
+        size={30}
+        sx={{
+          alignSelf: 'center',
+        }}
+      />
+    );
   }
   return (
     <Auth.Provider

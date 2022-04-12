@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import {
-  Alert, Snackbar, Box, Fab,
+  Alert, Snackbar, Box, Fab, CircularProgress, Typography,
 } from '@mui/material';
 import {
   addDoc, collection, deleteDoc, doc, getDocs, limit, orderBy, query, Timestamp, updateDoc,
@@ -116,6 +116,18 @@ export const NewsForm = () => {
     setNewsToEdit({ id, title, body });
   };
 
+  if (newsIsLoading) {
+    return (
+      <CircularProgress
+        size={30}
+        sx={{
+          alignSelf: 'center',
+        }}
+      />
+
+    );
+  }
+
   return (
     <Box>
       <Fab
@@ -132,16 +144,25 @@ export const NewsForm = () => {
         Agregar noticia
 
       </Fab>
-      {news.length > 0 && !newsIsLoading && news.map(({ id, title, body }) => (
-        <NewsCard
-          key={id}
-          id={id}
-          title={title}
-          content={body}
-          onPressEdit={onOpenEditDialog}
-          onPressDelete={onDelete}
-        />
-      ))}
+      {news.length > 0
+        ? news.map(({ id, title, body }) => (
+          <NewsCard
+            key={id}
+            id={id}
+            title={title}
+            content={body}
+            onPressEdit={onOpenEditDialog}
+            onPressDelete={onDelete}
+          />
+        )) : (
+          <Typography
+            variant="h2"
+            color="secondary"
+            sx={{ pt: '200px', textAlign: 'center' }}
+          >
+            Aún no hay noticias disponibles. Crea una
+          </Typography>
+        )}
       <NewsDialog
         open={open}
         handleClose={onHandleClose}

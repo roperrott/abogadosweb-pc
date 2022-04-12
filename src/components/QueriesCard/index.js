@@ -1,7 +1,10 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import {
+  Button, Card, CardActions, CardContent, Typography,
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
 
 export const QueriesCard = ({
-  fullName, email, phone, query, date,
+  fullName, email, phone, query, date, id, onPressDelete,
 }) => (
   <Card className="MuiQueryCard">
     <CardContent>
@@ -24,5 +27,11 @@ export const QueriesCard = ({
         {query}
       </Typography>
     </CardContent>
+    <CardActions>
+      <Button size="small" color="secondary" onClick={() => onPressDelete(id)}>
+        <DeleteIcon size="small" />
+        Eliminar
+      </Button>
+    </CardActions>
   </Card>
 );
