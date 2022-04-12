@@ -32,20 +32,6 @@ export const NewsForm = () => {
     }
   }, [navigate, user]);
 
-  const onSendData = async (formValues) => {
-    setIsLoading(true);
-    try {
-      await addDoc(collection(db, 'news'), { ...formValues, date: Timestamp.fromDate(new Date()) });
-      setShowSuccessAlert(true);
-    } catch (e) {
-      setShowErrorAlert(true);
-      setIsLoading(false);
-    } finally {
-      setIsLoading(false);
-      setOpen(false);
-    }
-  };
-
   const getNews = async () => {
     setNewsIsLoading(true);
     try {
@@ -65,6 +51,21 @@ export const NewsForm = () => {
       setNewsIsLoading(false);
     }
     setNewsIsLoading(false);
+  };
+
+  const onSendData = async (formValues) => {
+    setIsLoading(true);
+    try {
+      await addDoc(collection(db, 'news'), { ...formValues, date: Timestamp.fromDate(new Date()) });
+      setShowSuccessAlert(true);
+      getNews();
+    } catch (e) {
+      setShowErrorAlert(true);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+      setOpen(false);
+    }
   };
 
   const onEditNews = async (formValues, id) => {
