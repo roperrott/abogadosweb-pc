@@ -44,7 +44,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <Paper className={classes.loginWrapper} sx={{ bgcolor: 'primary.main' }} elevation={4}>
+    <Paper className={classes.loginWrapper} elevation={4}>
       <Typography variant="h6">INICIAR SESION</Typography>
       <TextField
         required
