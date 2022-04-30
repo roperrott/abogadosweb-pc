@@ -3,12 +3,12 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID,
+  apiKey: 'AIzaSyAK9aBnt83bc0pEuRVni0WJZ3bYjFwIu_A',
+  authDomain: 'abogado-laboral-web.firebaseapp.com',
+  projectId: 'abogado-laboral-web',
+  storageBucket: 'abogado-laboral-web.appspot.com',
+  messagingSenderId: '254605430166',
+  appId: '1:254605430166:web:625a1adf511da6036521b7',
 };
 const app = initializeApp(firebaseConfig);
 
